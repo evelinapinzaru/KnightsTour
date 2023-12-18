@@ -5,6 +5,7 @@ din jocul de sah) astfel incat toate pozitiile tablei sa fie acoperite.*/
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+#include"display.h"
 
 //vectori cu valorile ce se adauga la coordonata de pe axa x si,
 //respectiv, y a pozitiei calului pentru fiecare dintre miscari
@@ -15,7 +16,7 @@ enum option { DIMENSIUNE, POZITIE };
 
 int read_var(char* text, enum option opt, int set_value) {
 	char buf[20]; buf[19] = '\n';
-	int var = 0;
+	int var = -1;
 
 	switch (opt) {
 	case DIMENSIUNE:
@@ -23,9 +24,10 @@ int read_var(char* text, enum option opt, int set_value) {
 		do {
 			printf(text);
 			fgets(buf, sizeof(buf), stdin);
-
-			if ((var = atoi(buf)) > 0 && var <= set_value)
-				printf("\nThere are no solutions for a %dx%d board!\n\n", var, var);
+			sscanf_s(buf, "%d", &var);
+			if (var > 0 && var <= set_value)
+				printf("\nThere are no solutions for a %dx%d board!\n", var, var);
+			printf("\n");
 		} while (var <= set_value);
 		break;
 
@@ -33,19 +35,21 @@ int read_var(char* text, enum option opt, int set_value) {
 		do {
 			printf(text);
 			fgets(buf, sizeof(buf), stdin);
-		} while ((var = atoi(buf)) <= 0 || var >= set_value);
+			sscanf_s(buf, "%d", &var);
+			printf("\n");
+		} while (var < 0 || var >= set_value);
 		break;
 	}
 	return var;
 }
 
-void free_memory(int** matrix, int n) {
+void free_matrix(int** matrix, int n) {
 	for (int i = 0; i < n; i++)
 		free(matrix[i]);
 	free(matrix);
 }
 
-int** allocate_memory(int n) {
+int** allocate_matrix(int n) {
 	int** matrix = (int**)calloc(n, sizeof(int*));
 	if (!matrix) {
 		perror("Eroare la alocarea dinamica de memorie pentru matrice!");
@@ -55,10 +59,14 @@ int** allocate_memory(int n) {
 	for (int i = 0; i < n; i++)
 		if (!(matrix[i] = (int*)calloc(n, sizeof(int)))) {
 			perror("Eroare la alocarea dinamica de memorie pentru o linie din matrice!");
-			free_memory(matrix, i);
+			free_matrix(matrix, i);
 			exit(EXIT_FAILURE);
 		}
 	return matrix;
+}
+
+void display_matrix(int** matrix, int n) {
+	for (int i = 0; i < n; i++) line_display(matrix[i], n);
 }
 
 void knights_tour(int** matrix, int n, int i, int j) {
@@ -72,11 +80,10 @@ int main(void) {
 	i = read_var("i = ", POZITIE, n);
 	j = read_var("j = ", POZITIE, n);
 
-	int** matrix = allocate_memory(n);
+	int** matrix = allocate_matrix(n);
 
 	knights_tour(matrix, n, i, j);
 
-	free_memory(matrix, n);
-
+	free_matrix(matrix, n);
 	return EXIT_SUCCESS;
 }
