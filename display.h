@@ -2,9 +2,7 @@
 
 //functie care returneaza nr. de cifre ale numarului dat ca si parametru
 int how_many_digits(int number) {
-	if (number == 0) {
-		return 1;
-	}
+	if (number == 0) return 1;
 
 	int len = 0;
 
@@ -29,6 +27,10 @@ void blank_spaces(int nr, int max) {
 void line_display(int* line, int n) {
 	int max = max_nr_digits(n);
 
-	for (int i = 0; i < n-1; i++) { blank_spaces(line[i], max); printf("%u  ", line[i]); }
-	blank_spaces(line[n-1], max); printf("%u\n\n", line[n-1]);
+	for (int i = 0; i < n - 1; i++) { blank_spaces(line[i], max); printf("%u  ", line[i]); }
+	blank_spaces(line[n - 1], max); printf("%u\n\n", line[n - 1]);
+}
+
+void display_matrix(int** matrix, int n) {
+	for (int i = 0; i < n; i++) line_display(matrix[i], n);
 }
