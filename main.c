@@ -4,43 +4,51 @@
 #include"input.h"
 #include"display.h"
 
-int solution_nr = 0;
-
-// arrays with the values added to the x and y coordinates
+// tracks the number of solutions found
+int solution_nr;
+// store the values added to the board coordinates
 // of the knight's position for each move
 int x[8] = { -2, -1,  1,  2,  2,  1, -1, -2 };
-int y[8] = { 1,  2,  2,  1, -1, -2, -2, -1 };
+int y[8] = {  1,  2,  2,  1, -1, -2, -2, -1 };
 
-// this function returns 1 if the square with coordinates (i, j) is
-// within the chessboard's boarders, or 0 if it is outside of them
+// returns 1 if the square with coordinates (i, j) is 
+// within the borders of the chessboard, or 0 if not
 int is_on_board(int, int, int, int);
-
-// this function returns 1 if the square with coordinates (i, j) 
-// is free, or 0 if it has already been occupied once
+// returns 1 if the square with coordinates (i, j) is 
+// free, or 0 if it has already been occupied once
 int is_free(int**, int, int, int);
-
-// this function finds solutions for the Knight's Tour problem
-void find_solutions(int**, int, int, int, int);
+// searches for solutions to the Knight's Tour problem
+void search_4_solutions(int**, int, int, int, int);
 
 int main(void) {
-	int n, i, j;
+	int n, i, j, action;
 
-	printf("Given a \x1b[36mN\x1b[0m x \x1b[36mN\x1b[0m empty board with "
-		"the knight placed on the square with the (\x1b[32mi\x1b[0m, "
-		"\x1b[33mj\x1b[0m) coordinates. Moving according to the rules "
-		"of chess, the knight must visit each square exactly once.\n\n");
+	if (isatty(fileno(stdout))) {
+		printf("\n");
+	}
 
-	n = read_var("\x1b[36mN (size) = \x1b[0m", SIZE, 3);
-	i = read_var("\x1b[32mi coordinate = \x1b[0m", POSITION, n);
-	j = read_var("\x1b[33mj coordinate = \x1b[0m", POSITION, n);
+	do {
+		solution_nr = 0;
+		printf("Given a %sN%s x %sN%s empty board with the knight placed on the "
+			"square with the (%si%s, %sj%s) coordinates. Moving according to the "
+			"rules of chess, the knight must visit each square exactly once. For "
+			"reference, the coordinates (1,1) represent the position of the first "
+			"left square.\n\n", ansi(CYA), ansi(RESET), ansi(CYA), ansi(RESET),
+			ansi(GRE), ansi(RESET), ansi(YEL), ansi(RESET));
 
-	int** matrix = allocate_matrix(n);
+		n = get_input("%sN (size) = %s", SIZE, 3);
+		i = get_input("%si coordinate = %s", I_COOR, n);
+		j = get_input("%sj coordinate = %s", J_COOR, n);
 
-	find_solutions(matrix, n, i, j, 1);
-	if (!solution_nr) printf("\x1b[5;31mNu au fost gasite solutii!\x1b[0m\n");
-	else printf("\x1b[1A\x1b[2K");
+		int** board = allocate_matrix(n);
 
-	free_matrix(matrix, n);
+		search_4_solutions(board, n, i, j, 1);
+		if (!solution_nr) printf("%sNo solutions were found!%s%s%s\n\n\n",
+			ansi(ONOFF_RED), ansi(RESET), ansi(UP1LN), ansi(CLRLN));
+
+		free_matrix(board, n);
+	} while (action = get_input("Enter 0 to exit / 1 to try again : ", ACTION, 1));
+
 	return EXIT_SUCCESS;
 }
 
@@ -48,23 +56,20 @@ int is_on_board(int i, int j, int k, int n) {
 	return (i + x[k] >= 0) && (i + x[k] < n) && (j + y[k] >= 0) && (j + y[k] < n);
 }
 
-int is_free(int** matrix, int i, int j, int k) {
-	return !matrix[i + x[k]][j + y[k]];
-}
+int is_free(int** board, int i, int j, int k) { return !board[i + x[k]][j + y[k]]; }
 
-void find_solutions(int** matrix, int n, int i, int j, int contor) {
-	int flag = 0;
+void search_4_solutions(int** board, int n, int i, int j, int position_nr) {
+	board[i][j] = position_nr;
 
-	matrix[i][j] = contor;
 	for (int k = 0; k < 8; k++) {
-		if (is_on_board(i, j, k, n) && is_free(matrix, i, j, k)) {
-			find_solutions(matrix, n, i + x[k], j + y[k], contor + 1);
-			flag = 1;
+		if (is_on_board(i, j, k, n) && is_free(board, i, j, k)) {
+			search_4_solutions(board, n, i + x[k], j + y[k], position_nr + 1);
 		}
 	}
-	if (flag == 0 && contor == n * n) {
+	if (position_nr == n * n) {
 		solution_nr++;
-		display_matrix(matrix, n, solution_nr);
+		print_solution(board, n, solution_nr);
 	}
-	matrix[i][j] = 0; contor--;
+	board[i][j] = 0;
+	position_nr--;
 }
