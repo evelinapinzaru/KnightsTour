@@ -1,5 +1,5 @@
 FROM gcc:latest
-WORKDIR C:\Users\eveli\Desktop\KnightsTour\KnightsTour
-COPY main.c *.h .
-RUN gcc -o main main.c
+WORKDIR C:\Users\eveli\KnightsTour\KnightsTour
+COPY *.c *.h .
+RUN gcc -o main *.c
 CMD ["./main"]
