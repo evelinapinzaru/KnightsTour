@@ -9,11 +9,13 @@ visit each square exactly once.
 3. [Step-by-Step Walkthrough](#step-by-step-walkthrough)
 4. [Troubleshooting](#troubleshooting)
 5. [Final Results](#final-results)
+***
 
 <a name="language-and-framework"></a>
 ### Language and Framework Used
 * C native
 * Microsoft Visual Studio 2019
+***
 
 <a name="getting-started"></a>
 ### Getting Started
@@ -30,6 +32,7 @@ Execute the following command :
 ```bash
 docker run -it evepin/knightstour
 ```
+***
 
 <a name="step-by-step-walkthrough"></a>
 ### Step-by-Step Walkthrough
@@ -70,6 +73,7 @@ squares have been visited exactly once. That's when we print the board onto the 
 
 After doing so, it's crucial to mark the current position, board[i][j], with 0 and decrement 
 *position_nr* before we return from the reccursive call of **search_4_solution()** we're in at this point.
+***
 
 <a name="troubleshooting"></a>
 ### Troubleshooting
@@ -128,12 +132,13 @@ void print_err_txt(enum option opt, int order_nr, int extra) {
 	printf(" Try again ...%s\n\n", ansi(RESET));
 }
 ```
+***
 
 <a name="Final Results"></a>
 ### Final Results
 The program succesfully displays all the solutions to the Knight's Tour problem.
 
 As an **EXTRA FEATURE**, I've implemented ANSI color codes throughout the project, to improve readability 
-and provides a more engaging user experience.
+and provide a more engaging user experience.
 
 
