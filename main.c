@@ -23,6 +23,10 @@ void search_4_solutions(int**, int, int, int, int);
 int main(void) {
 	int n, i, j, action;
 
+	if (isatty(fileno(stdout))) {
+		printf("\n");
+	}
+
 	do {
 		solution_nr = 0;
 		printf("Given a %sN%s x %sN%s empty board with the knight placed on the "
