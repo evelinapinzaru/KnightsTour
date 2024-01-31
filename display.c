@@ -36,9 +36,9 @@ void blank_spaces(int nr, int max) {
 	for (int i = 0; i < (max - how_many_digits(nr)); i++) printf(" ");
 }
 
-void dash_n_plus(int n, int max) {
+void dash_n_plus(int n, int max, int max_chars_row) {
 	int plus_index = 0;
-	for (int i = 0; i < max; i++)
+	for (int i = 0; i < max_chars_row; i++)
 		if (i != plus_index) printf("-");
 		else {
 			printf("+");
@@ -58,14 +58,14 @@ void print_row(int* row, int n, int max, int max_row) {
 
 void print_solution(int** matrix, int n, int solution_nr) {
 	int max = max_nr_digits(n), max_chars_row = 1 + n * (3 + max);
-	
+
 	if (colour_nr == 6) colour_nr = 0;
 	printf("%sSOLUTION NR. %d :\n\n", ansi(colour_nr), solution_nr);
-	dash_n_plus(n, max_chars_row);
+	dash_n_plus(n, max, max_chars_row);
 	for (int i = 0; i < n; i++) {
 		printf("| ");
 		print_row(matrix[i], n, max, max_chars_row);
-		dash_n_plus(n, max_chars_row);
+		dash_n_plus(n, max, max_chars_row);
 	}
 	printf("%s\n", ansi(RESET));
 	colour_nr++;

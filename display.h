@@ -17,7 +17,7 @@ int max_nr_digits(int);
 // prints blank spaces for text alignment
 void blank_spaces(int, int);
 // prints a row of alternating dashes & plus signs for solution display
-void dash_n_plus(int, int);
+void dash_n_plus(int, int, int);
 // displays the elements of a given row (a 1D array) of the matrix
 void print_row(int*, int, int, int);
 // displays a solution
