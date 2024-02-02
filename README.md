@@ -1,22 +1,33 @@
-# Knight's tour
+﻿
+
+<h1>
+  <span style="color: #dc0e0e;">K</span><span style="color: #f06803;">n</span><span style="color: #ffc712;">i</span><span style="color: #68c20c;">g</span><span style="color: #0089ff;">h</span><span style="color: #2d23a6;">t</span><span style="color: #7b16b2;">'</span><span style="color: #dc0e0e;">s</span>
+  <span style="color: #f06803;">T</span><span style="color: #ffc712;">o</span><span style="color: #68c20c;">u</span><span style="color: #0089ff;">r</span>
+</h1>
+
+
+
+
 **Problem statement :** Given a N x N empty board with the knight placed on the square 
 with the (i, j) coordinates. Moving according to the rules of chess, the knight must 
 visit each square exactly once.
 
-## Table of Contents
-1. [Language and Framework Used](#language-and-framework)
-2. [Getting Started](#getting-started)
-3. [Step-by-Step Walkthrough](#step-by-step-walkthrough)
-4. [Troubleshooting](#troubleshooting)
-5. [Final Results](#final-results)
+## Table of Contents 📃
+1. [Language and Framework Used](#language-and-framework){style="color: #dc0e0e;"}
+2. [Getting Started](#getting-started){style="color: #f06803;"}
+3. [Step-by-Step Walkthrough](#step-by-step-walkthrough){style="color: #fcbd05;"}
+4. [Troubleshooting](#troubleshooting){style="color: #68c20c;"}
+5. [Final Results](#final-results){style="color: #0089ff;"}
+
 
 <a name="language-and-framework"></a>
-### Language and Framework Used
+### Language and Framework Used 🛠
 * C native
 * Microsoft Visual Studio 2019
 
 <a name="getting-started"></a>
-### Getting Started
+
+### Getting Started 🪄
 1. **Install Docker**\
 If you don't have Docker Desktop installed on your machine, you can download 
 and install it from [Docker's official website](https://www.docker.com/).
@@ -32,7 +43,7 @@ docker run -it evepin/knightstour
 ```
 
 <a name="step-by-step-walkthrough"></a>
-### Step-by-Step Walkthrough
+### Step-by-Step Walkthrough 👣
 In order to solve the Knight's Tour problem, I've considered the chessboard 
 to be a 2D array (a matrix) and called it *board*. When dynamically allocated, 
 the *board* is initialised with 0's to show that no position has ever been occupied.
@@ -72,7 +83,7 @@ After doing so, it's crucial to mark the current position, board[i][j], with 0 a
 *position_nr* before we return from the reccursive call of **search_4_solution()** we're in at this point.
 
 <a name="troubleshooting"></a>
-### Troubleshooting
+### Troubleshooting 🎯
 They say *"Never trust user input."*. That's why I've created the **get_input()** function :
 ```c
 int get_input(char* text, enum option opt, int set_value) {
@@ -130,10 +141,10 @@ void print_err_txt(enum option opt, int order_nr, int extra) {
 ```
 
 <a name="Final Results"></a>
-### Final Results
+
+### Final Results ✨
 The program succesfully displays all the solutions to the Knight's Tour problem.
 
 As an **EXTRA FEATURE**, I've implemented ANSI color codes throughout the project, to improve readability 
 and provide a more engaging user experience.
-
 
