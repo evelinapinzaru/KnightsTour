@@ -18,7 +18,6 @@ visit each square exactly once.
 * Microsoft Visual Studio 2019
 
 <a name="getting-started"></a>
-
 ## Getting Started 🪄
 1. **Install Docker**\
 If you don't have Docker Desktop installed on your machine, you can download 
@@ -31,7 +30,7 @@ docker pull evepin/knightstour
 3. **Run the Docker Container**\
 Execute the following command :
 ```bash
-docker run -it evepin/knightstour
+docker run -it --rm evepin/knightstour
 ```
 
 <a name="step-by-step-walkthrough"></a>
@@ -134,7 +133,7 @@ void print_err_txt(enum option opt, int order_nr, int extra) {
 
 <a name="Final Results"></a>
 
-### Final Results ✨
+## Final Results ✨
 The program succesfully displays all the solutions to the Knight's Tour problem.
 
 As an **EXTRA FEATURE**, I've implemented ANSI color codes throughout the project, to improve readability 
