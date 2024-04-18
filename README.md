@@ -39,6 +39,8 @@ In order to solve the Knight's Tour problem, I've considered the chessboard
 to be a 2D array (a matrix) and called it *board*. When dynamically allocated, 
 the *board* is initialised with 0's to show that no position has ever been occupied.
 
+*Note: The squares on the board are counted starting with 1*
+
 The solution revolves around the **search_4_solutions()** function :
 ```c
 void search_4_solutions(int** board, int n, int i, int j, int position_nr) {
@@ -57,7 +59,7 @@ void search_4_solutions(int** board, int n, int i, int j, int position_nr) {
 	position_nr--;
 }
 ```
-which places the *position_nr* (currently equal to 1) on board[i][j] and parses through 
+which places the *position_nr* (currently equal to 1) on board[i][j] and parses 
 the 2 global arrays, *x[8]* and *y[8]*:
 ```c
 int x[8] = { -2, -1,  1,  2,  2,  1, -1, -2 };

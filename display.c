@@ -1,72 +1,51 @@
+#include<math.h>
 #include"display.h"
+#include"input.h"
 
-colour_nr = 0;
+// tracks the current color number
+static int colour_nr = 0;
+static int base_distance = 3;
 
-char* ansi(enum ansi_option opt) {
-	switch (opt) {
-	case RED: return "\x1b[31m";
-	case YEL: return "\x1b[33m";
-	case GRE: return "\x1b[32m";
-	case CYA: return "\x1b[36m";
-	case BLU: return "\x1b[34m";
-	case MAG: return "\x1b[35m";
-	case DRK_RED: return "\x1b[2;31m";
-	case ONOFF_RED: return "\x1b[5;31m";
-	case RESET: return "\x1b[0m";
-	case UP1LN: return "\x1b[1A";
-	case CLRLN: return "\x1b[2K";
-	default: return "-INVALID_OPTION-";
-	}
-}
+char* ansi[] = { "\x1b[31m", "\x1b[33m", "\x1b[32m", "\x1b[36m", "\x1b[34m",
+  "\x1b[35m", "\x1b[2;31m", "\x1b[5;31m", "\x1b[0m", "\x1b[1A", "\x1b[2K" };
 
 int how_many_digits(int nr) {
-	if (nr == 0) return 1;
-	int len = 0;
-
-	while (nr != 0) {
-		nr = nr / 10;
-		len++;
-	}
-	return len;
+	return nr ? (int)log10(nr) + 1 : 1;
 }
 
-int max_nr_digits(int n) { return how_many_digits(n * n); }
-
-void blank_spaces(int nr, int max) {
-	for (int i = 0; i < (max - how_many_digits(nr)); i++) printf(" ");
+void print_blanks(int nr) {
+	for (int i = 0; i < (max_digits - how_many_digits(nr)); i++) printf(" ");
 }
 
-void dash_n_plus(int n, int max, int max_chars_row) {
+void print_hrz_divider(void) {
 	int plus_index = 0;
 	for (int i = 0; i < max_chars_row; i++)
 		if (i != plus_index) printf("-");
 		else {
 			printf("+");
-			plus_index += 3 + max;
+			plus_index += base_distance + max_digits;
 		}
 	printf("\n");
 }
 
-void print_row(int* row, int n, int max, int max_row) {
-	for (int i = 0; i < n - 1; i++) {
-		blank_spaces(row[i], max);
+void print_divided_row(int* row, int size) {
+	printf("| ");
+	for (int i = 0; i < size - 1; i++) {
+		print_blanks(row[i]);
 		printf("%d | ", row[i]);
 	}
-	blank_spaces(row[n - 1], max);
-	printf("%d |\n", row[n - 1]);
+	print_blanks(row[size - 1]);
+	printf("%d |\n", row[size - 1]);
 }
 
-void print_solution(int** matrix, int n, int solution_nr) {
-	int max = max_nr_digits(n), max_chars_row = 1 + n * (3 + max);
-
+void print_solution(int** matrix, int size, int solution_nr) {
 	if (colour_nr == 6) colour_nr = 0;
-	printf("%sSOLUTION NR. %d :\n\n", ansi(colour_nr), solution_nr);
-	dash_n_plus(n, max, max_chars_row);
-	for (int i = 0; i < n; i++) {
-		printf("| ");
-		print_row(matrix[i], n, max, max_chars_row);
-		dash_n_plus(n, max, max_chars_row);
+	printf("%sSOLUTION NR. %d :\n\n", ansi[colour_nr], solution_nr);
+	print_hrz_divider();
+	for (int i = 0; i < size; i++) {
+		print_divided_row(matrix[i], size);
+		print_hrz_divider();
 	}
-	printf("%s\n", ansi(RESET));
+	printf("%s\n", ansi[RESET]);
 	colour_nr++;
 }

@@ -1,10 +1,10 @@
 #ifndef HEAP
 #define HEAP
-#include<stdio.h>
 #include<stdlib.h>
 
-// frees the dynamically allocated n*n matrix passed as an argument
-void free_matrix(int**, int);
-// dynamically allocates a n*n matrix
+// dynamically allocates a size * size matrix
 int** allocate_matrix(int);
+
+// frees the dynamically allocated matrix passed as an argument
+void free_matrix(int**, int);
 #endif
