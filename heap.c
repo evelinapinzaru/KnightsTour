@@ -1,5 +1,5 @@
+#include<stdlib.h>
 #include"heap.h"
-#include"input.h"
 
 int** allocate_matrix(int size) {
 	int** matrix = (int**)calloc(size, sizeof(int*));

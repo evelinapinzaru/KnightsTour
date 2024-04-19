@@ -1,50 +1,57 @@
+#include<stdio.h>
+#include<string.h>
 #include"input.h"
+#include"display.h"
 
-void print_err_txt(enum option opt, int order_nr, int extra) {
-	printf("%s\n", ansi(DRK_RED));
-	if (opt == SIZE)
-		if (order_nr == 0) printf("Reading N error!");
-		else if (order_nr == 1) printf("Invalid size!");
-		else printf("There are no solutions for a %dx%d board!", extra, extra);
-	else if (opt == ACTION) 
-		(!order_nr) ? printf("Reading option error!") : printf("Invalid option!");
-	else
-		(!order_nr) ? printf("Reading coordinate error!") : printf("Invalid coordinate!");
-	printf(" Try again ...%s\n\n", ansi(RESET));
+void print_err_txt(int print_arg) {
+	printf("%s\n", ansi[DRK_RED]);
+	if (print_arg < 0) printf("Invalid input!");
+	else printf("There are no solutions for a %dx%d board!", print_arg, print_arg);
+	printf(" Try again ...%s\n\n", ansi[RESET]);
 }
 
-int get_input(char* text, enum option opt, int set_value) {
-	char buf[20];
-	int var = -1;
+int is_int(char* buf, int* input) {
+	int chars_consumed;
 
-	if (opt == SIZE) {
-		do {
-			printf(text, ansi(CYA), ansi(RESET));
-			fgets(buf, sizeof(buf), stdin);
-			if (sscanf(buf, "%d", &var) != 1) print_err_txt(opt, 0, 0);
-			else {
-				if (var < 0) print_err_txt(opt, 1, 0); 
-				else { if (var <= set_value) print_err_txt(opt, 2, var); }
-			}
-		} while (var <= set_value);
+	if (!buf) return 0;
+	buf[strlen(buf) - 1] = '\0';
+	if (sscanf(buf, "%d%n", input, &chars_consumed) == 1
+		&& buf[chars_consumed] == '\0') return 1;
+	print_err_txt(-1);
+	return 0;
+}
+
+int has_valid_value(option opt, int* input, int set_value) {
+	switch (opt) {
+	case SIZE: if (*input < 0) { print_err_txt(-1); return 0; }
+		if (*input < set_value) { print_err_txt(*input); return 0; }
+		break;
+	case I_COORD:
+	case J_COORD: *input = *input - 1;
+		if (*input < 0 || *input >= set_value) { print_err_txt(-1); return 0; }
+		break;
+	case ACTION:
+		if (*input != 0 && *input != set_value) { print_err_txt(-1); return 0; }
+		break;
 	}
-	else if (opt == ACTION) {
-		do {
-			printf(text);
-			fgets(buf, sizeof(buf), stdin);
-			if (sscanf(buf, "%d", &var) != 1) { print_err_txt(opt, 0, 0); }
-			else { if (var != 0 && var != set_value) print_err_txt(opt, 1, 0); }
-		} while (var != 0 && var != set_value);
-	}
-	else {
-		do {
-			if (opt == I_COOR) printf(text, ansi(GRE), ansi(RESET));
-			else printf(text, ansi(YEL), ansi(RESET));
-			fgets(buf, sizeof(buf), stdin);
-			if (sscanf(buf, "%d", &var) != 1) { print_err_txt(opt, 0, 0); }
-			else { var = var - 1; if (var < 0 || var >= set_value) print_err_txt(opt, 1, 0); }
-		} while (var < 0 || var >= set_value);
-	}
+	return 1;
+}
+
+int get_valid_input(option opt, char* text, int set_value) {
+	char buf[20];
+	int input = -1;
+
+	do {
+		switch (opt) {
+		case SIZE:
+		case I_COORD:
+		case J_COORD: printf("%s%s%s", ansi[CYA - opt], text, ansi[RESET]);
+			break;
+		case ACTION: printf(text);
+			break;
+		}
+		fgets(buf, sizeof(buf), stdin);
+	} while (!is_int(buf, &input) || !has_valid_value(opt, &input, set_value));
 	printf("\n");
-	return var;
+	return input;
 }

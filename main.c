@@ -10,14 +10,18 @@
 
 // the size of the board
 int n;
+
+// the minimum board size required to complete a knight's tour
+int min_board_size = 4;
+
 // the number of solutions found
 int solution_nr;
 
-// the offsets for the knight's movements
+// stores the offsets for the knight's moves
 struct { int x; int y; } offset[8] = { {-2, 1}, {-1, 2},
  {1, 2}, {2, 1}, {2, -1}, {1, -2}, {-1, -2}, {-2, -1} };
 
-// returns 1 if the square with coordinates (i, j) is within 
+// returns 1 if the square with coordinates (i, j) is within
 // the borders of the chessboard, else returns 0
 int is_on_board(int, int, int);
 
@@ -29,31 +33,29 @@ int is_free(int**, int, int, int);
 // squares have been checked once), else returns 0
 int solution_found(int);
 
-// searches for solutions to the Knight's Tour problem
+// searches for solutions to the knight's tour problem
 void search_4_solutions(int**, int, int, int);
 
 int main(void) {
 	int i, j, action;
 
-	if (_isatty(_fileno(stdout))) {
-		printf("\n");
-	}
+	if (_isatty(_fileno(stdout))) { printf("\n"); }
 
 	do {
 		solution_nr = 0;
 		printf("Given a %sN%s x %sN%s empty board with the knight placed on the "
 			"square with the (%si%s, %sj%s) coordinates. Moving according to the "
 			"rules of chess, the knight must visit each square exactly once. For "
-			"reference, the coordinates (1,1) represent the position of the first "
+			"reference, the coordinates (1,1) represent the position of the top-"
 			"left square.\n\n", ansi[CYA], ansi[RESET], ansi[CYA], ansi[RESET],
 			ansi[GRE], ansi[RESET], ansi[YEL], ansi[RESET]);
 
-		n = get_input("%sN (size) = %s", SIZE, 3);
-		i = get_input("%si coordinate = %s", I_COORD, n);
-		j = get_input("%sj coordinate = %s", J_COORD, n);
+		n = get_valid_input(SIZE, "N (size) = ", min_board_size);
+		i = get_valid_input(I_COORD, "i coordinate = ", n);
+		j = get_valid_input(J_COORD, "j coordinate = ", n);
 
 		max_digits = how_many_digits(n * n);
-		max_chars_row = 1 + n * (3 + max_digits);
+		chars_per_row = extra_chars + n * (min_div_distance + max_digits);
 
 		int** board = allocate_matrix(n);
 
@@ -62,7 +64,7 @@ int main(void) {
 			ansi[ONOFF_RED], ansi[RESET], ansi[UP1LN], ansi[CLRLN]);
 
 		free_matrix(board, n);
-	} while (action = get_input("Enter 0 to exit / 1 to try again : ", ACTION, 1));
+	} while (action = get_valid_input(ACTION, "Enter 0 to exit / 1 to try again : ", 1));
 	return EXIT_SUCCESS;
 }
 

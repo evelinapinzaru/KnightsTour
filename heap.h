@@ -1,6 +1,7 @@
+// header file that deals with heap management for a square matrix
+
 #ifndef HEAP
 #define HEAP
-#include<stdlib.h>
 
 // dynamically allocates a size * size matrix
 int** allocate_matrix(int);
