@@ -21,17 +21,18 @@ int is_int(char* buf, int* input) {
 	return 0;
 }
 
-int has_valid_value(option opt, int* input, int set_value) {
+int has_valid_value(option opt, int input, int set_value) {
 	switch (opt) {
-	case SIZE: if (*input < 0) { print_err_txt(-1); return 0; }
-		if (*input < set_value) { print_err_txt(*input); return 0; }
+	case SIZE:
+		if (input < 0) { print_err_txt(-1); return 0; }
+		if (input < set_value) { print_err_txt(input); return 0; }
 		break;
 	case I_COORD:
-	case J_COORD: *input = *input - 1;
-		if (*input < 0 || *input >= set_value) { print_err_txt(-1); return 0; }
+	case J_COORD:
+		if (input < 0 || input >= set_value) { print_err_txt(-1); return 0; }
 		break;
 	case ACTION:
-		if (*input != 0 && *input != set_value) { print_err_txt(-1); return 0; }
+		if (input != 0 && input != set_value) { print_err_txt(-1); return 0; }
 		break;
 	}
 	return 1;
@@ -51,7 +52,7 @@ int get_valid_input(option opt, char* text, int set_value) {
 			break;
 		}
 		fgets(buf, sizeof(buf), stdin);
-	} while (!is_int(buf, &input) || !has_valid_value(opt, &input, set_value));
+	} while (!is_int(buf, &input) || !has_valid_value(opt, input, set_value));
 	printf("\n");
 	return input;
 }

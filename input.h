@@ -13,7 +13,7 @@ void print_err_txt(int);
 int is_int(char*, int*);
 
 // returns 1, if the input has a valid value, else returns 0
-int has_valid_value(option, int*, int);
+int has_valid_value(option, int, int);
 
 // reads, validates & returns the validated user input
 int get_valid_input(option, char*, int);

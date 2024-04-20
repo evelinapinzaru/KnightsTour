@@ -2,7 +2,6 @@
 
 #ifndef DISPLAY
 #define DISPLAY
-#include<stdio.h>
 
 // stores options for ANSI codes usage
 enum ansi_option { RED, YEL, GRE, CYA, BLU, MAG,

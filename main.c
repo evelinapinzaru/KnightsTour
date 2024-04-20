@@ -4,10 +4,6 @@
 #include"input.h"
 #include"heap.h"
 
-#ifdef _WIN32
-#include<io.h>
-#endif
-
 // the size of the board
 int n;
 
@@ -39,16 +35,13 @@ void search_4_solutions(int**, int, int, int);
 int main(void) {
 	int i, j, action;
 
-	if (_isatty(_fileno(stdout))) { printf("\n"); }
-
 	do {
 		solution_nr = 0;
 		printf("Given a %sN%s x %sN%s empty board with the knight placed on the "
-			"square with the (%si%s, %sj%s) coordinates. Moving according to the "
-			"rules of chess, the knight must visit each square exactly once. For "
-			"reference, the coordinates (1,1) represent the position of the top-"
-			"left square.\n\n", ansi[CYA], ansi[RESET], ansi[CYA], ansi[RESET],
-			ansi[GRE], ansi[RESET], ansi[YEL], ansi[RESET]);
+			"square with the (%si%s, %sj%s) coordinates.\n", ansi[CYA], ansi[RESET], 
+			ansi[CYA], ansi[RESET], ansi[GRE], ansi[RESET], ansi[YEL], ansi[RESET]);
+		printf("Moving according to the rules of chess, the knight must visit each "
+			"square exactly once.\n\n");
 
 		n = get_valid_input(SIZE, "N (size) = ", min_board_size);
 		i = get_valid_input(I_COORD, "i coordinate = ", n);
