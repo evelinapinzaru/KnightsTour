@@ -36,9 +36,9 @@ created a robust validation system within the *input.h* header file, which cover
 all sorts of scenarios, including unexpected data types and input exceeding 
 specified bounds.
 
-**Important input constraints (value-related):**\
-The minimum board size (N) required for completing a knight's tour is 5.\
-The valid range for i and j coordinates extends from 0 to N-1, inclusive.
+**Important input constraints (value-related):**
+* The minimum board size (N) required for completing a knight's tour is 5.\
+* The valid range for i and j coordinates extends from 0 to N-1, inclusive.
 
 The solution revolves around the *search_4_solutions()* function :
 ```c
@@ -63,9 +63,9 @@ knight can potentially move to are within the chessboard's borders and are
 currently free. When both conditions are met, function recursively calls 
 itself with the updated position and position number.
 
-This process is repeated until 1 of 2 scenarios occurs :
-1. the knight reached a dead-end before completing a full tour
-2. a solution has been found.
+This process is repeated until 1 of these 2 scenarios occurs :
+* the knight reached a dead-end before completing a full tour
+* a solution has been found.
 
 Before returning from the current call of *search_4_solution()*,  it's crucial 
 to backtrack by marking the current position as unoccupied and decrementing the 
