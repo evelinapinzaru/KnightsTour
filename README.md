@@ -37,7 +37,7 @@ all sorts of scenarios, including unexpected data types and input exceeding
 specified bounds.
 
 **Important input constraints (value-related):**
-* The minimum board size (N) required for completing a knight's tour is 5.\
+* The minimum board size (N) required for completing a knight's tour is 5.
 * The valid range for i and j coordinates extends from 0 to N-1, inclusive.
 
 The solution revolves around the *search_4_solutions()* function :
