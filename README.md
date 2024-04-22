@@ -64,7 +64,8 @@ This process is repeated until 1 of 2 scenarios occurs :
 2. a solution has been found.
 
 Before returning from the current call of **search_4_solution()**,  it's crucial 
-to backtrack by marking the current position as unoccupied and decrementing the *position_nr*. This way we ensure all solutions are found.
+to backtrack by marking the current position as unoccupied and decrementing the 
+*position_nr*. This way we ensure all solutions are found.
 
 <a name="final-results"></a>
 ## Final Results ✨
