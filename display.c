@@ -3,14 +3,14 @@
 #include"display.h"
 #include"input.h"
 
+int extra_chars = 1;
+int min_div_distance = 3;
+
+char* ansi[11] = { "\x1b[31m", "\x1b[33m", "\x1b[32m", "\x1b[36m", "\x1b[34m",
+    "\x1b[35m", "\x1b[2;31m", "\x1b[5;31m", "\x1b[0m", "\x1b[1A", "\x1b[2K" };
+
 // tracks the current color number
 static int colour_nr = 0;
-
-extra_chars = 1;
-min_div_distance = 3;
-
-char* ansi[] = { "\x1b[31m", "\x1b[33m", "\x1b[32m", "\x1b[36m", "\x1b[34m",
-  "\x1b[35m", "\x1b[2;31m", "\x1b[5;31m", "\x1b[0m", "\x1b[1A", "\x1b[2K" };
 
 int how_many_digits(int nr) {
 	return nr ? (int)log10(nr) + 1 : 1;

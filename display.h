@@ -8,20 +8,20 @@ enum ansi_option { RED, YEL, GRE, CYA, BLU, MAG,
 	  DRK_RED, ONOFF_RED, RESET, UP1LN, CLRLN };
 
 // stores ansi codes
-char* ansi[];
+extern char* ansi[11];
 
 // the maximum number of digits it takes to represent
 // any position number on the board
-int max_digits;
+extern int max_digits;
 
 // the number of chars printed on each row
-int chars_per_row;
+extern int chars_per_row;
 
 // the number of extra chars used for displaying each row
-int extra_chars;
+extern int extra_chars;
 
 // marks the base distance between 2 vertical dividers
-int min_div_distance;
+extern int min_div_distance;
 
 // returns the number of digits of a given integer
 int how_many_digits(int);

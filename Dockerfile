@@ -1,5 +1,5 @@
 FROM gcc:latest
-WORKDIR C:\Users\eveli\Documents\GitHub
+WORKDIR /home/ktour
 COPY *.c *.h .
-RUN gcc -o ktour *.c
+RUN gcc -o ktour *.c -lm
 CMD ["./ktour"]

@@ -4,6 +4,9 @@
 #include"input.h"
 #include"heap.h"
 
+int max_digits;
+int chars_per_row;
+
 // the size of the board
 int n;
 
@@ -34,16 +37,25 @@ void search_4_solutions(int**, int, int, int);
 
 int main(void) {
 	int i, j, action;
+	int runs_in_terminal;
+
+#ifdef _WIN32
+	runs_in_terminal = (_isatty(_fileno(stdout))) ? 1 : 0;
+#else
+	runs_in_terminal = (isatty(fileno(stdout))) ? 1 : 0;
+#endif
 
 	do {
-		solution_nr = 0;
+		if (runs_in_terminal) printf("\n");
 		printf("Given a %sN%s x %sN%s empty board with the knight placed on the "
-			"square with the (%si%s, %sj%s) coordinates.\n", ansi[CYA], ansi[RESET], 
+			"square with the (%si%s, %sj%s) coordinates.\n", ansi[CYA], ansi[RESET],
 			ansi[CYA], ansi[RESET], ansi[GRE], ansi[RESET], ansi[YEL], ansi[RESET]);
 		printf("Moving according to the rules of chess, the knight must visit each "
 			"square exactly once.\n\n");
 
 		n = get_valid_input(SIZE, "N (size) = ", min_board_size);
+		printf("The values of %si%s and %sj%s can range from 0 to %d, inclusive!\n\n",
+			ansi[GRE], ansi[RESET], ansi[YEL], ansi[RESET], n-1);
 		i = get_valid_input(I_COORD, "i coordinate = ", n);
 		j = get_valid_input(J_COORD, "j coordinate = ", n);
 
@@ -52,6 +64,7 @@ int main(void) {
 
 		int** board = allocate_matrix(n);
 
+		solution_nr = 0;
 		search_4_solutions(board, i, j, 1);
 		if (!solution_nr) printf("%sNo solutions were found!%s%s%s\n\n\n",
 			ansi[ONOFF_RED], ansi[RESET], ansi[UP1LN], ansi[CLRLN]);
