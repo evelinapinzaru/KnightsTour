@@ -7,7 +7,7 @@ visit each square exactly once.
 ## Table of Contents 📃
 1. [Getting Started](#getting-started)
 2. [Overview](#overview)
-3. [Final Results](#final-results)
+3. [Final Note](#final-note)
 
 <a name="getting-started"></a>
 ## Getting Started 🪄
@@ -71,7 +71,7 @@ Before returning from the current call of *search_4_solution()*,  it's crucial
 to backtrack by marking the current position as unoccupied and decrementing the 
 *position_nr*. This way we ensure all solutions are found.
 
-<a name="final-results"></a>
+<a name="final-note"></a>
 ## Final Note ✨
 The program successfully displays all the solutions to the Knight's Tour problem.
 
