@@ -59,14 +59,14 @@ knight can potentially move to are within the chessboard's borders and are
 currently free. When both conditions are met, the function recursively calls 
 itself with the updated position and position number.
 
-This process is repeated until 1 of 2 scenarios occurs : 1) the knight reached a 
-dead-end before completing a full tour; 2) a solution has been found.
+This process is repeated until 1 of 2 scenarios occurs :
+1. the knight reached a dead-end before completing a full tour
+2. a solution has been found.
 
 Before returning from the current call of **search_4_solution()**,  it's crucial 
 to backtrack by marking the current position as unoccupied and decrementing the *position_nr*. This way we ensure all solutions are found.
 
-<a name="Final Results"></a>
-
+<a name="final-results"></a>
 ## Final Results ✨
 The program succesfully displays all the solutions to the Knight's Tour problem.
 
