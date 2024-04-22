@@ -7,7 +7,7 @@ visit each square exactly once.
 ## Table of Contents 📃
 1. [Getting Started](#getting-started)
 2. [Overview](#overview)
-3. [Final Note](#final-note)
+3. [Final Note + Demo](#final-note-n-demo)
 
 <a name="getting-started"></a>
 ## Getting Started 🪄
@@ -71,12 +71,11 @@ Before returning from the current call of *search_4_solution()*,  it's crucial
 to backtrack by marking the current position as unoccupied and decrementing the 
 *position_nr*. This way we ensure all solutions are found.
 
-<a name="final-note"></a>
-## Final Note ✨
+<a name="final-note-n-demo"></a>
+## Final Note + Demo ✨
 The program successfully displays all the solutions to the Knight's Tour problem.
 
 I've integrated ANSI color codes as an **EXTRA FEATURE** to enhance readability 
 and create a more captivating user experience.
 
-*Thanks for taking your time to read this. Wish u all the best :)*
-
+https://github.com/evelinapinzaru/KnightsTour/assets/126123307/548272fc-7a8a-4bf2-a3fc-76b29127f69b
