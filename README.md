@@ -29,14 +29,18 @@ docker run -it --rm evepin/knightstour
 In order to solve the Knight's Tour problem, I've considered the chessboard 
 to be a square matrix and called it *board*. To indicate that no position has 
 been occupied yet, I chose to initialise it to zero. Both the initialisation 
-and the dynamic allocation of the *board* are handled using **calloc()**.
+and the dynamic allocation of the *board* are handled using *calloc()*.
 
 In an effort to avoid potential issues caused by invalid user input, I've 
-created a robust validation system within the *input.h* header, which covers 
-all sorts of scenarios, including: unexpected data types, input exceeding 
-specified bounds, etc.
+created a robust validation system within the *input.h* header file, which covers 
+all sorts of scenarios, including unexpected data types and input exceeding 
+specified bounds.
 
-The solution revolves around the **search_4_solutions()** function :
+**Important input constraints (value-related):**\
+The minimum board size (N) required for completing a knight's tour is 5.\
+The valid range for i and j coordinates extends from 0 to N-1, inclusive.
+
+The solution revolves around the *search_4_solutions()* function :
 ```c
 void search_4_solutions(int** board, int i, int j, int position_nr) {
 	board[i][j] = position_nr;
@@ -56,23 +60,23 @@ void search_4_solutions(int** board, int i, int j, int position_nr) {
 which starts by placing the knight at the position with coordinates (i, j), 
 provided by the user. It then proceeds to check if any of the 8 squares the 
 knight can potentially move to are within the chessboard's borders and are 
-currently free. When both conditions are met, the function recursively calls 
+currently free. When both conditions are met, function recursively calls 
 itself with the updated position and position number.
 
 This process is repeated until 1 of 2 scenarios occurs :
 1. the knight reached a dead-end before completing a full tour
 2. a solution has been found.
 
-Before returning from the current call of **search_4_solution()**,  it's crucial 
+Before returning from the current call of *search_4_solution()*,  it's crucial 
 to backtrack by marking the current position as unoccupied and decrementing the 
 *position_nr*. This way we ensure all solutions are found.
 
 <a name="final-results"></a>
-## Final Results ✨
-The program succesfully displays all the solutions to the Knight's Tour problem.
+## Final Note ✨
+The program successfully displays all the solutions to the Knight's Tour problem.
 
 I've integrated ANSI color codes as an **EXTRA FEATURE** to enhance readability 
 and create a more captivating user experience.
 
-*Author's Note: Thanks for taking your time to read this. Wish u all the best :)*
+*Thanks for taking your time to read this. Wish u all the best :)*
 

@@ -11,7 +11,7 @@ int chars_per_row;
 int n;
 
 // the minimum board size required to complete a knight's tour
-int min_board_size = 4;
+int min_board_size = 5;
 
 // the number of solutions found
 int solution_nr;
@@ -53,9 +53,9 @@ int main(void) {
 		printf("Moving according to the rules of chess, the knight must visit each "
 			"square exactly once.\n\n");
 
+		printf("N has to be at least %d!\n\n", min_board_size);
 		n = get_valid_input(SIZE, "N (size) = ", min_board_size);
-		printf("The values of %si%s and %sj%s can range from 0 to %d, inclusive!\n\n",
-			ansi[GRE], ansi[RESET], ansi[YEL], ansi[RESET], n-1);
+		printf("The values of i and j can range from 0 to %d, inclusive!\n\n", n-1);
 		i = get_valid_input(I_COORD, "i coordinate = ", n);
 		j = get_valid_input(J_COORD, "j coordinate = ", n);
 
